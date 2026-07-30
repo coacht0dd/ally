@@ -1,0 +1,12 @@
+{
+  "name": "ally-air-site",
+  "private": true,
+  "type": "module",
+  "description": "Ally Air & Refrigeration LLC — static site. No dependencies.",
+  "scripts": {
+    "build": "node build.mjs",
+    "qa": "node build.mjs && node qa.mjs",
+    "pages": "OUT=docs BASE=/ally node build.mjs",
+    "serve": "node build.mjs && npx --yes serve dist"
+  }
+}

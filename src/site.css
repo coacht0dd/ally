@@ -1,0 +1,407 @@
+/* ============================================================================
+   v3 — TRUST REGISTER
+   v1 and v2 were designed to look designed. This one is designed to look
+   trusted, which is nearly the opposite job:
+     · warm mid-tones and daylight, not cinematic near-black
+     · the hero is a photograph with the content sitting on it in a card
+     · the hero does four jobs at once — say it, prove it, show who we are,
+       and give both audiences a door
+     · proof is above the fold: rating, a real review, badges, local signal
+     · smaller headline, more evidence. Restraint in type, generosity in proof
+   ========================================================================= */
+:root{
+  --night:#1B1916; --ink:#252220; --ink-2:#4C463F; --muted:#7C7369; --muted-2:#9A9188;
+  --bone:#F7F4EF; --sand:#EFE9E0; --sand-2:#E4DCD0; --paper:#FFFFFF;
+  --line:#DFD8CC; --line-2:#CFC6B8; --line-d:rgba(255,255,255,.16);
+  --cool:#0E6E9E; --cool-2:#2A9BD4; --cool-050:#EAF4FA;
+  --warm:#C2521C; --warm-2:#E87434; --warm-050:#FBF0E9;
+  --gold:#C9922E; --green:#2F7D4F;
+  --disp:'Archivo',system-ui,-apple-system,sans-serif;
+  --body:'Inter',system-ui,-apple-system,"Segoe UI",sans-serif;
+  --sh-1:0 2px 6px rgba(37,34,32,.06);
+  --sh-2:0 12px 34px rgba(37,34,32,.11);
+  --sh-3:0 28px 70px rgba(27,25,22,.26);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--body);background:var(--bone);color:var(--ink);line-height:1.62;font-size:17px;
+  -webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+h1,h2,h3,h4{font-family:var(--disp);font-weight:700;letter-spacing:-.028em;line-height:1.04}
+.wrap{max-width:1200px;margin:0 auto;padding:0 34px}
+section{padding:clamp(56px,6vw,96px) 0}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.17em;text-transform:uppercase}
+
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--disp);
+  font-weight:700;font-size:15px;letter-spacing:.01em;padding:16px 26px;text-decoration:none;
+  border:1.5px solid transparent;transition:.18s cubic-bezier(.2,.7,.3,1);cursor:pointer;border-radius:3px}
+.btn-cool{background:var(--cool);color:#fff;border-color:var(--cool)}
+.btn-cool:hover{background:#0B587E;transform:translateY(-2px);box-shadow:var(--sh-2)}
+.btn-warm{background:var(--warm);color:#fff;border-color:var(--warm)}
+.btn-warm:hover{background:#A64313;transform:translateY(-2px);box-shadow:var(--sh-2)}
+.btn-out{border-color:var(--line-2);color:var(--ink);background:var(--paper)}
+.btn-out:hover{border-color:var(--ink);transform:translateY(-2px);box-shadow:var(--sh-1)}
+.btn-ghost{border-color:rgba(255,255,255,.5);color:#fff}
+.btn-ghost:hover{background:rgba(255,255,255,.12);border-color:#fff}
+.btn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- utility + header (light) ---------- */
+.util{background:var(--night);color:#CFC7BC;font-size:13.5px;padding:9px 0}
+.util .wrap{display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap}
+.util a{color:#fff;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.35)}
+.util .dot{display:inline-flex;align-items:center;gap:8px}
+.util .dot i{width:7px;height:7px;border-radius:50%;background:#5FC46E;flex:0 0 auto}
+.hdr{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:80;box-shadow:var(--sh-1)}
+/* The header needs a wider column than the content and a defined shedding
+   order. Brand and phone are load-bearing; nav items and the CTA give way. */
+.hdr .wrap{max-width:1460px}
+.burger{display:none;width:48px;height:48px;border:1px solid var(--line);background:var(--paper);
+  border-radius:3px;cursor:pointer;place-items:center;flex:0 0 auto}
+.burger span{display:block;width:20px;height:2px;background:var(--ink);position:relative}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:20px;height:2px;background:var(--ink)}
+.burger span::before{top:-6px} .burger span::after{top:6px}
+#mnav{position:absolute;opacity:0;pointer-events:none}
+.mobnav{display:none;border-top:1px solid var(--line);background:var(--paper);max-height:70vh;overflow-y:auto}
+.mobnav a{display:block;padding:15px 0;font-size:16.5px;font-weight:600;color:var(--ink);
+  text-decoration:none;border-bottom:1px solid var(--line)}
+.mobnav a:last-child{border-bottom:0}
+#mnav:checked~.mobnav{display:block}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:18px;height:82px}
+.brand{display:flex;align-items:center;gap:13px;text-decoration:none;color:var(--ink);flex:0 0 auto}
+.brand .mk{width:48px;height:48px;background:var(--night);display:grid;place-items:center;position:relative;
+  overflow:hidden;border-radius:3px}
+.brand .mk::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:4px;
+  background:linear-gradient(90deg,var(--cool-2) 0 50%,var(--warm-2) 50%)}
+.brand .mk span{font-family:var(--disp);font-weight:800;color:#fff;font-size:19px;letter-spacing:-.04em;margin-bottom:3px}
+.brand b{font-family:var(--disp);font-size:20px;font-weight:800;letter-spacing:-.03em;display:block;line-height:1}
+.brand small{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:700;display:block;margin-top:4px}
+.mainnav ul{display:flex;list-style:none;align-items:center;gap:2px}
+.mainnav a{font-size:15px;font-weight:600;color:var(--ink-2);text-decoration:none;padding:10px 13px;
+  white-space:nowrap;border-radius:3px;transition:.16s}
+.mainnav a:hover{color:var(--cool);background:var(--cool-050)}
+.nav-r{display:flex;align-items:center;gap:16px;flex:0 0 auto}
+.nav-tel{text-decoration:none;white-space:nowrap}
+.nav-tel small{display:block;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.nav-tel b{font-family:var(--disp);font-size:21px;font-weight:800;letter-spacing:-.02em;color:var(--ink);display:block;margin-top:2px}
+.nav-tel:hover b{color:var(--cool)}
+
+/* ================= TRUST HERO — photo plate + content card ================ */
+.hero{position:relative;overflow:hidden;background:var(--sand)}
+/* the photograph. mid-tone and warm — daylight, not a night shoot. */
+.hero .photo{position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(80% 70% at 74% 26%, rgba(255,225,190,.34), transparent 62%),
+    radial-gradient(60% 60% at 20% 96%, rgba(40,60,72,.30), transparent 66%),
+    linear-gradient(158deg,#8FA0A8 0%,#6E7C85 32%,#4E5A63 66%,#39424A 100%)}
+.hero .photo::after{content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(95deg, rgba(255,255,255,.05) 0 1px, transparent 1px 16px);
+  -webkit-mask-image:radial-gradient(70% 70% at 74% 40%,#000,transparent 78%);
+  mask-image:radial-gradient(70% 70% at 74% 40%,#000,transparent 78%)}
+/* warm scrim so the card reads and the photo stays visible */
+.hero .scrim{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(96deg, rgba(247,244,239,.97) 0%, rgba(247,244,239,.90) 34%,
+             rgba(247,244,239,.42) 58%, rgba(30,36,42,.16) 100%)}
+.hero .grain{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.3;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/><feColorMatrix type='saturate' values='0'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='.45'/></svg>")}
+.hero .shotnote{position:absolute;right:24px;bottom:20px;z-index:3;font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:rgba(255,255,255,.62);font-weight:700;text-align:right;max-width:280px;line-height:1.6}
+.hero .inner{position:relative;z-index:4;padding:clamp(38px,4.6vw,66px) 0 clamp(30px,3.4vw,46px)}
+.hcard{background:var(--paper);border-radius:4px;box-shadow:var(--sh-3);max-width:648px;overflow:hidden}
+.hcard .pad{padding:clamp(28px,3.2vw,42px)}
+.hcard .kick{display:flex;align-items:center;gap:11px;color:var(--cool);margin-bottom:16px}
+.hcard .kick svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;flex:0 0 auto}
+.hcard h1{font-size:clamp(30px,3.5vw,47px);letter-spacing:-.032em;line-height:1.03}
+.hcard h1 em{font-style:normal;color:var(--cool)}
+.hcard .deck{margin-top:17px;font-size:clamp(16px,1.2vw,18px);color:var(--ink-2)}
+.hcard .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.hcard .cta .btn{flex:1 1 auto;min-width:200px}
+/* the proof strip that makes it a trust hero rather than a headline */
+.proofstrip{border-top:1px solid var(--line);background:var(--bone);padding:20px clamp(28px,3.2vw,42px) 46px;
+  display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center}
+.pf-score{text-align:center;padding-right:22px;border-right:1px solid var(--line);flex:0 0 auto}
+.pf-score .n{font-family:var(--disp);font-weight:800;font-size:32px;letter-spacing:-.04em;line-height:1}
+.pf-score .st{color:var(--gold);font-size:13px;letter-spacing:2px;margin-top:3px}
+.pf-score .src{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:4px}
+.pf-quote p{font-size:15.5px;color:var(--ink);line-height:1.5}
+.pf-quote .who{font-size:12px;color:var(--muted);margin-top:7px;font-weight:600}
+/* owner chip overlapping the card */
+.ownerchip{display:flex;align-items:center;gap:14px;background:var(--night);color:#fff;padding:13px 20px 13px 13px;
+  border-radius:4px;box-shadow:var(--sh-2);margin-top:-32px;margin-left:clamp(20px,3vw,42px);position:relative;z-index:6;
+  max-width:430px}
+.ownerchip .av{width:52px;height:52px;border-radius:3px;flex:0 0 auto;position:relative;overflow:hidden;
+  background:linear-gradient(150deg,#6E6257,#3A342E);display:grid;place-items:center}
+.ownerchip .av span{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:#B9AFA3;font-weight:700;text-align:center;padding:3px}
+.ownerchip b{font-family:var(--disp);font-size:15.5px;font-weight:700;display:block;letter-spacing:-.02em}
+.ownerchip small{font-size:12.5px;color:#B9AFA3;display:block;margin-top:2px}
+
+/* ---------- credential strip ---------- */
+.creds{background:var(--paper);border-bottom:1px solid var(--line)}
+.creds .wrap{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  padding-top:20px;padding-bottom:20px}
+.cred{display:flex;align-items:center;gap:11px;font-size:14.5px;font-weight:600;color:var(--ink-2)}
+.cred svg{width:19px;height:19px;stroke:var(--cool);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+.cred.w svg{stroke:var(--warm)}
+
+/* ---------- the two doors ---------- */
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,26px)}
+.doors>*{min-width:0}
+.door{background:var(--paper);border:1px solid var(--line);border-radius:4px;overflow:hidden;
+  text-decoration:none;color:var(--ink);display:flex;flex-direction:column;transition:.26s cubic-bezier(.2,.7,.3,1)}
+.door:hover{transform:translateY(-4px);box-shadow:var(--sh-2);border-color:var(--line-2)}
+.door .img{aspect-ratio:16/9;position:relative;overflow:hidden;
+  background:linear-gradient(158deg,#7E8D96 0%,#586A76 100%)}
+.door.c .img{background:radial-gradient(70% 70% at 60% 20%, rgba(180,225,245,.5), transparent 62%),
+  linear-gradient(158deg,#6E828F 0%,#3E4C56 100%)}
+.door.w .img{background:radial-gradient(70% 70% at 60% 20%, rgba(255,205,160,.45), transparent 62%),
+  linear-gradient(158deg,#8A7264 0%,#4A3C34 100%)}
+.door .img .cap{position:absolute;left:0;right:0;bottom:0;padding:14px 18px;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(255,255,255,.66);font-weight:700;
+  background:linear-gradient(to top,rgba(20,24,28,.86),transparent)}
+.door .img .flag{position:absolute;top:16px;left:16px;background:var(--paper);color:var(--ink);
+  padding:7px 13px;border-radius:3px;font-size:11px;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
+.door.c .img .flag{color:var(--cool)} .door.w .img .flag{color:var(--warm)}
+.door .bd{padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;flex:1}
+.door h3{font-size:clamp(21px,2.1vw,27px);letter-spacing:-.03em;margin-bottom:11px}
+.door p{color:var(--ink-2);font-size:16px;margin-bottom:20px}
+.door ul{list-style:none;margin-bottom:24px;flex:1}
+.door li{padding:9px 0 9px 24px;position:relative;font-size:15px;color:var(--ink-2);border-bottom:1px solid var(--line)}
+.door li:last-child{border-bottom:0}
+.door li::before{content:"";position:absolute;left:0;top:18px;width:11px;height:1.5px;background:var(--cool)}
+.door.w li::before{background:var(--warm)}
+.door .go{font-family:var(--disp);font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:10px;
+  color:var(--cool)}
+.door.w .go{color:var(--warm)}
+.door .go svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;transition:.24s}
+.door:hover .go svg{transform:translateX(6px)}
+
+/* ---------- section heads ---------- */
+.shead{max-width:760px;margin-bottom:clamp(30px,3.4vw,48px)}
+.shead.ctr{margin-inline:auto;text-align:center}
+.shead .lbl{color:var(--cool);margin-bottom:13px;display:flex;align-items:center;gap:11px}
+.shead.ctr .lbl{justify-content:center}
+.shead .lbl::before{content:"";width:24px;height:2px;background:currentColor}
+.shead h2{font-size:clamp(26px,3.2vw,42px);letter-spacing:-.032em;line-height:1.05}
+.shead p{color:var(--ink-2);font-size:17px;margin-top:15px}
+
+/* ---------- neighbors / reviews ---------- */
+.nb{background:var(--sand)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,20px)}
+.rev-grid>*{min-width:0}
+.rcard{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:26px 24px;
+  display:flex;flex-direction:column;transition:.24s}
+.rcard:hover{transform:translateY(-3px);box-shadow:var(--sh-2)}
+.rcard .st{color:var(--gold);letter-spacing:2px;font-size:14px;margin-bottom:12px}
+.rcard p{color:var(--ink);font-size:15.5px;flex:1}
+.rcard .who{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);font-weight:600}
+.rcard .who b{color:var(--ink);display:block;font-size:14.5px;font-family:var(--disp);letter-spacing:-.01em}
+
+/* ---------- local band ---------- */
+.local{background:var(--night);color:#fff}
+.local .shead h2{color:#fff} .local .shead p{color:#BEB6AC} .local .shead .lbl{color:var(--cool-2)}
+.local .g{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:center}
+.townlist{list-style:none;columns:2;column-gap:22px}
+.townlist li{break-inside:avoid;border-bottom:1px solid var(--line-d)}
+.townlist a{display:flex;justify-content:space-between;padding:12px 2px;color:#D8D1C7;text-decoration:none;
+  font-weight:600;font-size:15.5px}
+.townlist a:hover{color:#fff} .townlist a::after{content:"→";color:var(--cool-2)}
+.mapplate{aspect-ratio:4/3;border-radius:4px;position:relative;overflow:hidden;
+  background:linear-gradient(155deg,#2E3A42,#1A2126)}
+.mapplate .cap{position:absolute;left:0;right:0;bottom:0;padding:16px 20px;font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:#8B96A0;font-weight:700;background:linear-gradient(to top,rgba(12,16,20,.9),transparent)}
+
+/* ---------- close ---------- */
+.close{background:var(--cool);color:#fff;text-align:center}
+.close h2{font-size:clamp(28px,3.6vw,46px);letter-spacing:-.032em;max-width:20ch;margin-inline:auto}
+.close p{color:rgba(255,255,255,.86);margin-top:16px;font-size:17px;max-width:48ch;margin-inline:auto}
+.close .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.close .btn-out{background:transparent;border-color:rgba(255,255,255,.55);color:#fff}
+.close .btn-out:hover{background:rgba(255,255,255,.13);border-color:#fff}
+.close .btn-w{background:#fff;color:var(--cool);border-color:#fff}
+.close .btn-w:hover{background:var(--bone)}
+
+/* ---------- footer ---------- */
+.ftr{background:var(--night);color:#A69D93;padding:clamp(44px,5vw,72px) 0 28px;font-size:14.5px}
+.fg{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:clamp(22px,3.4vw,46px);padding-bottom:40px}
+.fg h4{font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:#fff;margin-bottom:16px;font-weight:700}
+.fg a{color:#A69D93;text-decoration:none;display:block;padding:5px 0}
+.fg a:hover{color:#fff}
+.fbot{border-top:1px solid var(--line-d);padding-top:20px;display:flex;justify-content:space-between;gap:14px;
+  flex-wrap:wrap;font-size:13px;color:#8A8177}
+
+.callbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:200;background:var(--paper);
+  border-top:1px solid var(--line);padding:10px 12px;gap:10px;box-shadow:0 -6px 24px rgba(37,34,32,.14)}
+.callbar a{flex:1}
+
+/* Shedding order: optional nav items -> header phone -> full nav (burger
+   takes over) -> header CTA. The utility bar keeps a phone link throughout. */
+@media(max-width:1440px){ .mainnav a{padding:10px 10px;font-size:14.5px} }
+@media(max-width:1380px){ .mainnav li.opt{display:none} }
+@media(max-width:1120px){ .nav-tel{display:none} }
+@media(max-width:1000px){
+  .mainnav{display:none}
+  .burger{display:grid}
+  .nav{height:74px}
+}
+@media(max-width:1080px){
+  .hcard{max-width:none}
+  .hero .scrim{background:linear-gradient(178deg, rgba(247,244,239,.94) 0%, rgba(247,244,239,.88) 52%, rgba(40,48,54,.42) 100%)}
+  .doors,.local .g{grid-template-columns:1fr}
+  .rev-grid{grid-template-columns:1fr}
+  .fg{grid-template-columns:1fr 1fr}
+}
+@media(max-width:860px){
+  .callbar{display:flex}
+  body{padding-bottom:74px}
+  .hero .shotnote{display:none}
+  .proofstrip{grid-template-columns:1fr;gap:16px}
+  .pf-score{display:flex;align-items:center;gap:14px;text-align:left;border-right:0;border-bottom:1px solid var(--line);
+    padding-right:0;padding-bottom:14px}
+  .pf-score .st,.pf-score .src{margin-top:0}
+  .townlist{columns:1}
+  .wrap{padding:0 20px}
+}
+@media(max-width:520px){
+  .hdr-cta{display:none}
+  .fg{grid-template-columns:1fr}
+  .hcard .cta .btn{width:100%;flex:1 1 100%}
+  .ownerchip{margin-left:12px;margin-right:12px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ============================================================================
+   INTERIOR PAGES
+   Same register as the homepage, less volume. The interior hero is the same
+   photo plate at about half the height, with a breadcrumb above the card so
+   people always know which of the two trades they're standing in.
+   ========================================================================= */
+.ihero .inner{padding:clamp(26px,3vw,44px) 0 clamp(26px,3vw,44px)}
+.ihero .hcard{max-width:720px}
+.ihero .hcard h1{font-size:clamp(27px,3vw,40px)}
+.crumbs{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:16px;font-size:12px;
+  font-weight:700;letter-spacing:.11em;text-transform:uppercase}
+.crumbs a{color:var(--ink-2);text-decoration:none}
+.crumbs a:hover{color:var(--cool)}
+.crumbs i{font-style:normal;color:var(--muted-2)}
+.crumbs span{color:var(--muted)}
+/* the residential side of the house runs warm */
+.ihero.warm .photo{background:
+  radial-gradient(80% 70% at 74% 26%, rgba(255,214,168,.40), transparent 62%),
+  radial-gradient(60% 60% at 20% 96%, rgba(60,44,34,.32), transparent 66%),
+  linear-gradient(158deg,#A08D7E 0%,#7E6B5D 34%,#5A4B41 68%,#413630 100%)}
+.ihero.warm .hcard h1 em{color:var(--warm)}
+.ihero.warm .hcard .kick{color:var(--warm)}
+.ihero.warm .btn-cool{background:var(--warm);border-color:var(--warm)}
+.ihero.warm .btn-cool:hover{background:#A64313}
+
+/* ---------- numbered service index ---------- */
+.idx{border-top:1px solid var(--line)}
+.idx .row{display:grid;grid-template-columns:64px 1fr 1.15fr;gap:clamp(16px,2.6vw,40px);
+  padding:clamp(22px,2.6vw,34px) 0;border-bottom:1px solid var(--line);align-items:start}
+.idx .row>*{min-width:0}
+.idx .no{font-family:var(--disp);font-weight:800;font-size:13px;letter-spacing:.1em;color:var(--cool);padding-top:6px}
+.idx h3{font-size:clamp(19px,1.9vw,25px);letter-spacing:-.028em}
+.idx .sub{color:var(--muted);font-size:14px;margin-top:8px}
+.idx .row p{color:var(--ink-2);font-size:16px}
+.idx .row p+p{margin-top:12px}
+.warmtone .idx .no{color:var(--warm)}
+@media(max-width:820px){ .idx .row{grid-template-columns:1fr;gap:10px} .idx .no{padding-top:0} }
+
+/* ---------- split: copy beside a panel ---------- */
+.split{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(26px,4vw,60px);align-items:center}
+.split>*{min-width:0}
+.split.rev{grid-template-columns:.95fr 1.05fr}
+.plate{aspect-ratio:4/3;border-radius:4px;position:relative;overflow:hidden;
+  background:linear-gradient(155deg,#7E8D96,#3E4C56)}
+.plate.warm{background:linear-gradient(155deg,#9C8676,#4A3C34)}
+.plate .cap{position:absolute;left:0;right:0;bottom:0;padding:16px 20px;font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(255,255,255,.68);font-weight:700;
+  background:linear-gradient(to top,rgba(16,20,24,.88),transparent)}
+.split h2{font-size:clamp(24px,2.9vw,38px);letter-spacing:-.032em}
+.split p{color:var(--ink-2);margin-top:16px}
+@media(max-width:900px){ .split,.split.rev{grid-template-columns:1fr} }
+
+/* ---------- ticked list ---------- */
+.ticks{list-style:none;margin-top:22px}
+.ticks li{position:relative;padding:10px 0 10px 30px;border-bottom:1px solid var(--line);
+  color:var(--ink-2);font-size:16px}
+.ticks li:last-child{border-bottom:0}
+.ticks li::before{content:"";position:absolute;left:2px;top:19px;width:12px;height:1.5px;background:var(--cool)}
+.warmtone .ticks li::before{background:var(--warm)}
+.ticks li b{color:var(--ink);font-weight:600}
+
+/* ---------- what happens when you call ---------- */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.8vw,22px)}
+.steps>*{min-width:0}
+.step{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:26px 24px}
+.step .n{font-family:var(--disp);font-weight:800;font-size:12px;letter-spacing:.14em;color:var(--cool);margin-bottom:14px}
+.step h3{font-size:19px;letter-spacing:-.024em;margin-bottom:9px}
+.step p{color:var(--ink-2);font-size:15px}
+.warmtone .step .n{color:var(--warm)}
+@media(max-width:900px){ .steps{grid-template-columns:1fr 1fr} }
+@media(max-width:560px){ .steps{grid-template-columns:1fr} }
+
+/* ---------- FAQ ---------- */
+.faq{max-width:840px;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;padding:22px 44px 22px 0;position:relative;
+  font-family:var(--disp);font-weight:700;font-size:clamp(17px,1.6vw,20px);letter-spacing:-.022em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:8px;top:19px;font-size:24px;font-weight:400;color:var(--cool)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{color:var(--ink-2);padding:0 8px 24px 0;font-size:16px;max-width:70ch}
+.faq details p+p{padding-top:0;margin-top:-10px;padding-bottom:24px}
+
+/* ---------- town cards ---------- */
+.towns{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,20px)}
+.towns>*{min-width:0}
+.town{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:24px;text-decoration:none;
+  color:var(--ink);display:block;transition:.22s cubic-bezier(.2,.7,.3,1)}
+.town:hover{transform:translateY(-3px);box-shadow:var(--sh-2);border-color:var(--line-2)}
+.town h3{font-size:20px;letter-spacing:-.028em}
+.town p{color:var(--ink-2);font-size:14.5px;margin-top:9px}
+.town .go{display:inline-flex;align-items:center;gap:8px;color:var(--cool);font-family:var(--disp);
+  font-weight:700;font-size:14px;margin-top:16px}
+@media(max-width:900px){ .towns{grid-template-columns:1fr 1fr} }
+@media(max-width:560px){ .towns{grid-template-columns:1fr} }
+
+/* ---------- contact ---------- */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,4vw,56px);align-items:start}
+.contact>*{min-width:0}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:clamp(24px,3vw,36px)}
+.panel h3{font-size:22px;letter-spacing:-.028em;margin-bottom:8px}
+.field{margin-top:18px}
+.field label{display:block;font-size:12px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:7px}
+.field input,.field select,.field textarea{width:100%;font-family:var(--body);font-size:16px;color:var(--ink);
+  background:var(--bone);border:1px solid var(--line-2);border-radius:3px;padding:13px 14px}
+.field textarea{min-height:120px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--cool);outline-offset:1px;background:var(--paper)}
+.form-note{font-size:13.5px;color:var(--muted);margin-top:16px}
+.bigcall{display:block;background:var(--night);color:#fff;border-radius:4px;padding:clamp(24px,3vw,34px);
+  text-decoration:none}
+.bigcall small{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#B9AFA3;font-weight:700}
+.bigcall b{font-family:var(--disp);font-size:clamp(28px,3.4vw,40px);font-weight:800;letter-spacing:-.035em;
+  display:block;margin-top:8px;line-height:1}
+.bigcall p{color:#B9AFA3;font-size:15px;margin-top:12px}
+.infoline{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line);align-items:flex-start}
+.infoline:last-child{border-bottom:0}
+.infoline svg{width:19px;height:19px;stroke:var(--cool);fill:none;stroke-width:1.9;stroke-linecap:round;
+  stroke-linejoin:round;flex:0 0 auto;margin-top:3px}
+.infoline b{display:block;font-family:var(--disp);font-size:15.5px;letter-spacing:-.015em}
+.infoline span{color:var(--ink-2);font-size:15px}
+@media(max-width:900px){ .contact{grid-template-columns:1fr} }
+
+/* ---------- misc ---------- */
+.tight{padding-top:clamp(34px,3.4vw,52px)}
+.prose{max-width:70ch}
+.prose p{color:var(--ink-2);margin-top:16px;font-size:17px}
+.prose p:first-child{margin-top:0}
+.pull{border-left:3px solid var(--cool);padding:4px 0 4px 22px;margin-top:26px;
+  font-family:var(--disp);font-size:clamp(19px,2vw,24px);font-weight:700;letter-spacing:-.026em;line-height:1.3}
+.warmtone .pull{border-left-color:var(--warm)}
+
+/* .fg a{display:block} was flattening the footer logo lockup — put it back. */
+.fg .brand{display:flex;padding:0;align-items:center}
+.fg .brand:hover b{color:#fff}

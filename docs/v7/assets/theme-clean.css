@@ -440,3 +440,15 @@ body.emergency .deep .infoline svg{stroke:var(--ember)}
 /* captions sitting on photographs were too faint to read against the gradient */
 .plate .cap,.eqmedia .lbl,.rc .im .cap,.regmap .cap,.door .img .cap,.mapplate .cap{
   color:rgba(255,255,255,.86)}
+
+/* ------------------------------------------------- the break after the hero */
+.herostats{background:#fff;border-bottom:1px solid var(--line)}
+.hs b{font-family:var(--disp);font-weight:800;color:var(--ink)}
+.hs .mono{color:var(--steel)}
+.hs a:hover b{color:var(--ember)}
+.stance{background:#fff;padding:clamp(58px,6.4vw,100px) 0}
+.stance-g h2{font-size:clamp(26px,3vw,40px);color:var(--ink)}
+.stance-g .kick{color:var(--ember)}
+.stance-pts h3{color:var(--ink)}
+.stance-pts p{color:var(--steel)}
+.stance-pts>div{border-bottom-color:var(--line)}

@@ -1,0 +1,264 @@
+/* ============================================================================
+   THEME: BRIGHT
+   Loaded after site.css when the build runs with THEME=bright.
+
+   Reverse-engineered from geehvac.com's computed styles rather than guessed at:
+
+     dominant surface   #FFFFFF (by a wide margin), then #F7F7F7
+     brand block colour rgb(81,45,109) — their purple; Ally keeps navy + ember
+     accent on dark     #FFD573 gold
+     CTA                rgb(232,119,34) — near-identical to Ally's ember
+     display face       Kanit 600 (rounded geometric), 42px h1 / 36px h2
+     body face          Open Sans, 18px
+     buttons            border-radius 30px, 22px/800, UPPERCASE,
+                        padding 0 40px, and a hard offset shadow —
+                        `0 6px 0 0` in a lighter tint of the button colour
+     body text          rgb(75,56,76)
+
+   The hard offset shadow under the buttons is the single most recognisable
+   thing about that site. Everything else follows from white-dominance and a
+   rounder, friendlier type voice.
+
+   This theme deliberately contradicts §1, §4 and §5 of the build brief, which
+   ask for sharp corners, a dark cinematic register and no franchise-theme
+   look. It exists so both directions can be compared on the same content.
+   ========================================================================= */
+
+:root{
+  /* surfaces flip: white leads, grey supports, navy becomes punctuation */
+  --white:#FFFFFF;
+  --bone:#F7F7F7;
+  --midnight:#122B4A;
+  --equip:#1B3D63;
+  --ink:#4B384C;              /* their warm purple-grey body ink */
+  --steel:#6E6270;
+  --line:#E4E1E4;
+  --fridge:#1D8FBF;
+  --ice:#E9F6FC;
+  --ember:#E87722;            /* their CTA orange */
+  --ember-lift:#FF9E1B;       /* the hard-shadow tint under it */
+  --warm:#FFD573;             /* gold, for headings on dark */
+  --navy-lift:#2C5C8F;
+
+  --disp:'Kanit',system-ui,-apple-system,sans-serif;
+  --body:'Open Sans',system-ui,-apple-system,"Segoe UI",sans-serif;
+
+  --r-btn:30px;
+  --r-card:14px;
+  --r-img:12px;
+  --sh-2:0 10px 30px rgba(30,20,32,.10);
+  --sh-3:0 22px 60px rgba(30,20,32,.18);
+}
+
+body{font-size:18px;line-height:1.7;background:var(--white)}
+h1,h2,h3,h4{font-family:var(--disp);font-weight:600;letter-spacing:0;line-height:1.2}
+.mono{font-family:var(--body);font-weight:700;letter-spacing:.1em}
+
+/* ------------------------------------------------------------- buttons */
+.btn{border-radius:var(--r-btn);font-family:var(--disp);font-weight:600;font-size:17px;
+  letter-spacing:.02em;text-transform:uppercase;padding:16px 34px;min-height:58px;border-width:0;
+  box-shadow:0 6px 0 0 var(--btn-lift,transparent);
+  transition:transform .14s ease,box-shadow .14s ease,background .2s ease}
+.btn:hover{transform:translateY(3px);box-shadow:0 3px 0 0 var(--btn-lift,transparent)}
+.btn:active{transform:translateY(6px);box-shadow:0 0 0 0 var(--btn-lift,transparent)}
+.btn-ember{background:var(--ember);--btn-lift:var(--ember-lift)}
+.btn-ember:hover{background:var(--ember)}
+.btn-ice{background:var(--midnight);color:#fff;--btn-lift:var(--navy-lift)}
+.btn-ice:hover{background:var(--midnight)}
+.btn-out-l{background:var(--white);border:2px solid var(--midnight);color:var(--midnight);
+  --btn-lift:rgba(18,43,74,.28)}
+.btn-out-d{background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.7);color:#fff;--btn-lift:rgba(255,255,255,.24)}
+.btn-out-d:hover{background:rgba(255,255,255,.2)}
+.btn-w{background:#fff;color:var(--ember);--btn-lift:rgba(0,0,0,.16)}
+
+/* --------------------------------------------------------------- header */
+.util{background:var(--midnight);font-size:14px}
+.util a{border-bottom-color:var(--warm);color:var(--warm)}
+.hdr{background:#fff;border-bottom:1px solid var(--line)}
+.hdr.stuck{background:#fff;box-shadow:0 6px 22px rgba(30,20,32,.10)}
+.mainnav a{font-family:var(--disp);font-weight:500;font-size:15.5px;color:var(--midnight)}
+.mainnav a:hover{color:var(--ember)}
+.brand .tag{font-family:var(--disp);font-weight:600;color:var(--ember)}
+.hdr-tel b{font-family:var(--disp);font-weight:600;color:var(--midnight)}
+.mobnav{background:#fff}
+.mobnav a{font-family:var(--disp);color:var(--midnight)}
+body.navopen .hdr{background:#fff}
+
+/* ------------------------------------------------------------------ hero */
+.hero .vig{background:
+  linear-gradient(94deg, rgba(10,24,42,.90) 0%, rgba(12,28,48,.84) 34%, rgba(14,32,54,.56) 58%, rgba(14,32,54,.22) 100%),
+  linear-gradient(to top, rgba(10,24,42,.7) 0%, transparent 44%)}
+.hero h1{font-size:clamp(34px,4.4vw,58px);font-weight:600;letter-spacing:0;line-height:1.14}
+.hero h1 .l:nth-child(2)>span::after{background:var(--warm)}
+.ihero h1{font-size:clamp(29px,3.4vw,46px);letter-spacing:0;line-height:1.16}
+.ihero h1 em,.hero h1 em{color:var(--warm);font-style:normal}
+.eyebrow{color:var(--warm)}
+.hero .sub,.ihero .sub{font-size:clamp(17px,1.3vw,20px)}
+.status{border-radius:var(--r-card);border-color:rgba(255,255,255,.24)}
+.status .n{font-family:var(--disp);font-weight:600}
+.microproof b{font-family:var(--disp);font-weight:600}
+
+/* --------------------------------------------------------- section tone */
+/* White leads. Grey supports. Navy is punctuation, not the base note. */
+section{padding:clamp(56px,6vw,92px) 0}
+.deep{background:var(--bone);color:var(--ink)}
+.deep h2,.deep h3,.deep .shead h2{color:var(--midnight)}
+.deep .shead p,.deep p{color:var(--steel)}
+.deep .kick{color:var(--ember)}
+.dark{background:var(--midnight);color:#fff}
+.dark .shead h2,.dark h2{color:var(--warm)}
+.dark .kick{color:var(--warm)}
+.proof{background:var(--white)}
+.shead h2{font-size:clamp(27px,3.2vw,40px);color:var(--midnight)}
+.shead .kick{color:var(--ember)}
+.shead .kick::before{background:var(--ember)}
+
+/* ------------------------------------------------------- rounded surfaces */
+.door,.rc,.eqc,.relc,.riskc,.ccard,.pfrag,.panel,.step,.plate,.regmap,.mapplate,
+.eqmedia,.bigq,.ratingbar,.bigcall,.ncell,.rcard,.chip,.pchip{border-radius:var(--r-card)}
+.door .img,.rc .im{border-radius:var(--r-card) var(--r-card) 0 0}
+.eqc,.relc,.riskc,.ccard,.step,.pfrag{box-shadow:var(--sh-2);border-color:transparent}
+.eqc:hover,.relc:hover,.riskc:hover{box-shadow:var(--sh-3)}
+.riskc h3::before{background:var(--ember);height:3px;width:32px}
+.panel{box-shadow:var(--sh-3);border-color:transparent}
+.field input,.field select,.field textarea{border-radius:10px;background:var(--bone);border-color:var(--line)}
+.chip,.pchip{border-radius:24px}
+
+/* ------------------------------------------------------------ two doors */
+.audsplit{gap:0}
+.half .vg{background:linear-gradient(to top,rgba(10,20,34,.90) 6%,rgba(10,20,34,.58) 44%,rgba(10,20,34,.14) 78%,transparent 96%)}
+.half h2{font-size:clamp(26px,2.9vw,40px);color:#fff}
+.half .tag{color:var(--warm)}
+.half .go{color:var(--warm);border-bottom-width:2px}
+.half.res .tag,.half.res .go{color:var(--warm)}
+.seam{background:linear-gradient(to bottom,transparent,var(--warm) 24%,var(--ember) 76%,transparent)}
+
+/* ---------------------------------------------------------------- proof */
+.bigq{background:linear-gradient(102deg,rgba(18,43,74,.96),rgba(18,43,74,.88)),var(--img-van) 62% 50%/cover no-repeat,var(--midnight)}
+.bigq blockquote{font-family:var(--disp);font-weight:500;font-size:clamp(20px,2.2vw,29px);line-height:1.35}
+.stars{color:var(--warm)!important}
+.ratingbar{background:var(--bone);border-color:transparent;box-shadow:var(--sh-2)}
+.ratingbar .n{font-family:var(--disp);font-weight:600;color:var(--midnight)}
+
+/* --------------------------------------------------------------- process */
+.proc .rail i{background:linear-gradient(90deg,var(--ember),var(--warm))}
+.st .node{border-radius:50%;background:var(--ember);border-color:var(--ember);color:#fff;
+  font-family:var(--disp);font-weight:600;width:52px;height:52px;font-size:16px}
+.proc.in .st .node{border-color:var(--ember);background:var(--ember)}
+.disclaim{border-radius:var(--r-card);border-color:rgba(255,255,255,.22)}
+
+/* --------------------------------------------------- takeover + emergency */
+.takeover{background:linear-gradient(120deg,var(--ember),#F0913F)}
+.takeover h2{font-size:clamp(28px,4.6vw,62px);color:#fff;line-height:1.12}
+.telhuge{font-family:var(--disp);font-weight:600;font-size:clamp(32px,5.2vw,68px);letter-spacing:-.01em;
+  border-bottom-width:4px}
+.emhero{background:linear-gradient(120deg,var(--ember),#F0913F)}
+.emhero h1{font-size:clamp(34px,5.4vw,72px);line-height:1.1}
+.emhero h1 em{color:var(--midnight)}
+
+/* --------------------------------------------------------- service area */
+.areastats b{font-family:var(--disp);font-weight:600;color:var(--warm)}
+.tcell{border-radius:8px;padding:13px 12px}
+.tcell:hover{background:var(--bone);padding-left:14px}
+.radlist a{border-radius:8px;padding:11px 10px}
+.radlist a:hover{background:rgba(255,255,255,.06)}
+.ccard h3{color:var(--midnight)}
+.ccard h3 i{color:var(--ember)}
+.ncell{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)}
+
+/* ------------------------------------------------------------------- FAQ */
+.faq summary{font-family:var(--disp);font-weight:600;color:var(--midnight)}
+.faq summary::after{color:var(--ember)}
+.deep .faq summary{color:var(--midnight)}
+
+/* ---------------------------------------------------------------- footer */
+.ftr{background:var(--midnight)}
+.fg h4{color:var(--warm);font-family:var(--disp);font-weight:600;letter-spacing:.1em}
+.fmotto{font-family:var(--disp);font-weight:600;color:var(--warm)}
+
+/* ------------------------------------------------------------- callbar */
+.callbar{background:#fff;border-top:1px solid var(--line)}
+.callbar .btn-out-d{background:var(--white);border-color:var(--midnight);color:var(--midnight);
+  --btn-lift:rgba(18,43,74,.24)}
+
+/* misc */
+.pull{border-left-color:var(--ember);font-family:var(--disp);font-weight:600}
+.symcall{border-radius:var(--r-card);border-color:var(--ember)}
+.symlist .n{color:var(--ember)}
+.ticks li::before{background:var(--ember);height:3px;width:14px}
+.prose .lede strong{font-family:var(--disp);font-weight:600}
+.draftnote{border-radius:10px}
+
+/* ============================================================================
+   .deep IS NOW A LIGHT SURFACE
+   In the dark theme .deep is a navy band, so every component inside it was
+   written for light-on-dark. Flipping the surface breaks all of them at once:
+   the equipment list goes white-on-white, the symptom numbers vanish, the
+   nearby-town cards disappear. Each one is re-grounded here.
+   ========================================================================= */
+
+/* equipment explorer */
+.deep .eqlist{border-top-color:var(--line)}
+.deep .eqlist li{border-bottom-color:var(--line)}
+.deep .eqlist button{color:var(--steel);font-family:var(--disp);font-weight:500}
+.deep .eqlist button:hover{color:var(--midnight)}
+.deep .eqlist button[aria-selected="true"]{color:var(--midnight)}
+.deep .eqlist button::before{background:var(--ember)}
+.deep .eqlist .n{color:var(--steel)}
+.deep .eqlist button[aria-selected="true"] .n{color:var(--ember)}
+.deep .eqbody{background:var(--white);border-color:transparent;box-shadow:var(--sh-2);
+  border-radius:0 0 var(--r-card) var(--r-card)}
+.deep .eqbody p{color:var(--steel)}
+.deep .eqbody .mono{color:var(--ember)}
+.deep .eqbody .risk .mono{color:var(--midnight)}
+.deep .eqbody .lnk{color:var(--ember);border-bottom-color:rgba(232,119,34,.4)}
+.eqmedia{border-radius:var(--r-card) var(--r-card) 0 0}
+
+/* symptom selector */
+.deep .symlist{border-top-color:var(--line)}
+.deep .symlist li{border-bottom-color:var(--line);color:var(--ink)}
+.deep .symlist .n{color:var(--ember)}
+.deep .symcall{background:linear-gradient(100deg,rgba(232,119,34,.10),rgba(232,119,34,.04))}
+.deep .symcall div{color:var(--ink)}
+.deep .symcall strong{color:var(--midnight)}
+
+/* industry chips, pending chips */
+.deep .chip{border-color:var(--line);color:var(--ink);background:var(--white);box-shadow:var(--sh-2)}
+.deep .pchip{border-color:var(--line);color:var(--steel);background:var(--white)}
+.deep .pchip i{color:var(--ember)}
+.deep .disclaim{border-color:var(--line);background:var(--white);color:var(--steel);
+  border-radius:var(--r-card);box-shadow:var(--sh-2)}
+.deep .disclaim strong{color:var(--midnight)}
+
+/* stats band + nearby towns */
+.deep .areastats{border-color:var(--line)}
+.deep .areastats div{border-right-color:var(--line)}
+.deep .areastats b{color:var(--midnight)}
+.deep .areastats .mono{color:var(--steel)}
+.deep .ncell{background:var(--white);border-color:transparent;box-shadow:var(--sh-2)}
+.deep .ncell .t{color:var(--midnight)}
+.deep .ncell .d{color:var(--steel)}
+.deep .ncell.all{background:rgba(232,119,34,.1)}
+.deep .ncell.all .d{color:var(--ember)}
+@media(max-width:820px){ .deep .areastats div:nth-child(-n+2){border-bottom-color:var(--line)} }
+
+/* the form panel and info lines sit on light now */
+.deep .panel{background:var(--white)}
+.deep .infoline{border-bottom-color:var(--line)}
+.deep .infoline b{color:var(--midnight)}
+.deep .infoline span{color:var(--steel)}
+.deep .infoline svg{stroke:var(--ember)}
+.deep .faq{border-top-color:var(--line)}
+.deep .faq details{border-bottom-color:var(--line)}
+.deep .faq details p{color:var(--steel)}
+.deep .ticks li{color:var(--steel);border-bottom-color:var(--line)}
+
+/* the emergency page's dispatch block keeps a navy surface for contrast */
+body.emergency .deep{background:var(--midnight);color:#fff}
+body.emergency .deep .shead h2{color:var(--warm)}
+body.emergency .deep .shead p{color:rgba(255,255,255,.76)}
+body.emergency .deep .kick{color:var(--warm)}
+body.emergency .deep .infoline b{color:#fff}
+body.emergency .deep .infoline span{color:rgba(255,255,255,.74)}
+body.emergency .deep .infoline{border-bottom-color:rgba(255,255,255,.18)}
+body.emergency .deep .infoline svg{stroke:var(--warm)}

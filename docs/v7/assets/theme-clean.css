@@ -325,3 +325,118 @@ section{padding:clamp(58px,6.4vw,104px) 0}
 .mainnav{flex:0 1 auto}
 .mainnav li.opt2{display:none}
 .mainnav li:nth-child(7){display:list-item}   /* Service Area stays */
+
+/* ============================================================================
+   CONTRAST PASS
+   Audited every text node on fourteen page types against its computed
+   background and the WCAG AA floor (4.5:1 normal, 3:1 large). Fifty-three
+   distinct failures. Most came from flipping .deep from a navy band to a light
+   one — every component written for light-on-dark kept its light text and went
+   invisible. The rest were the brand accents themselves: ember at #E4622C is
+   3.45:1 against white, and gold at #F0A04B is 2.14:1.
+
+   Replacement values were computed, not eyeballed:
+     --ember #C74E1A  4.63:1 as text on white AND as a background under white,
+                      so one token is safe in both directions
+     --gold-ink #9E6008  5.08:1 on white, for stars and accents on light
+     --warm #F0A04B kept for dark surfaces only, where it is 7.39:1
+     --ice #5CBCE4 on navy is 7.34:1, replacing #1583B4 at 3.71:1
+   ========================================================================= */
+
+:root{
+  --ember:#C74E1A;
+  --ember-soft:#E4622C;   /* decorative fills only — never put text on it */
+  --gold-ink:#9E6008;     /* the warm accent, for light surfaces */
+  --warm:#F0A04B;         /* the warm accent, for dark surfaces */
+  --fridge:#106D95;
+  --ice-accent:#5CBCE4;
+}
+
+/* stars: deep amber on light, gold on dark */
+.stars{color:var(--gold-ink)!important}
+.dark .stars,.bigq .stars,.takeover .stars,.hero .stars{color:var(--warm)!important}
+
+/* accents that sit on navy */
+.dark .kick,.ftr .fg h4,.fmotto,.dark .radlist i,.dark .areastats b,
+.bigq .who a,.status .hd .mono,.status.ok .hd .mono{color:var(--warm)}
+.ftr .mono,.dark .mono{color:var(--ice-accent)}
+.crumbs i{color:rgba(223,247,255,.55)}
+.emhero .crumbs i{color:rgba(255,255,255,.7)}
+.emhero .crumbs a{color:rgba(255,255,255,.92)}
+
+/* --------------------------------------------------------------------------
+   .deep is a light surface in this theme. Everything below was written for
+   light-on-dark and has to be re-grounded. */
+.deep .riskc h3,.deep .eqc h3,.deep .relc h3,.deep .ccard h3,
+.deep .infoline b,.deep .ncell .t,.deep .areastats b,.deep .st h3,
+.deep .cstate h3,.deep .symcall strong,.deep .eqbody .risk strong{color:var(--ink)}
+.deep .riskc p,.deep .infoline span,.deep .st p,.deep .eqbody p,
+.deep .cstate li,.deep .ticks li,.deep .symcall div,.deep .chip{color:var(--steel)}
+.deep .symlist li{color:var(--ink)}
+.deep .ncell .d,.deep .areastats .mono,.deep .eqbody .mono,
+.deep .tcell .d,.deep .pchip{color:var(--steel)}
+.deep .eqbody .mono,.deep .pchip i,.deep .ncell.all .d{color:var(--ember)}
+
+/* equipment explorer on a light band */
+.deep .eqlist{border-top-color:var(--line)}
+.deep .eqlist li{border-bottom-color:var(--line)}
+.deep .eqlist button{color:var(--steel)}
+.deep .eqlist button:hover,.deep .eqlist button[aria-selected="true"]{color:var(--ink)}
+.deep .eqlist button::before{background:var(--ember)}
+.deep .eqbody{background:#fff;border-color:var(--line)}
+.deep .eqbody .lnk{color:var(--ember);border-bottom-color:rgba(199,78,26,.35)}
+
+/* light-band chrome */
+.deep .areastats div,.deep .ncell,.deep .disclaim{background:#fff;border-color:var(--line)}
+.deep .areastats,.deep .infoline,.deep .cstate li{border-color:var(--line)}
+.deep .disclaim{color:var(--steel)}
+.deep .disclaim strong{color:var(--ink)}
+.deep .symcall{background:#fff;border-color:var(--ember)}
+.deep .chip,.deep .pchip{background:#fff;border-color:var(--line)}
+
+/* the navy call card keeps light text even when it sits inside .deep */
+.bigcall p,.deep .bigcall p{color:rgba(214,226,235,.88)}
+.bigcall small,.deep .bigcall small{color:var(--warm)}
+.bigcall b,.deep .bigcall b{color:#fff}
+
+/* the emergency page keeps .deep navy, so put it back there */
+body.emergency .deep .eqlist button,body.emergency .deep .infoline span{color:rgba(255,255,255,.78)}
+body.emergency .deep .infoline b{color:#fff}
+body.emergency .deep .infoline{border-bottom-color:rgba(255,255,255,.18)}
+body.emergency .deep .infoline svg{stroke:var(--warm)}
+
+/* white on ember now clears 4.5:1 at every size, so the ember surfaces stay
+   solid rather than being softened with alpha */
+.takeover p,.emhero .sub,.emhero .nonguar,.emhero>.wrap>.mono,.takeover .mono{color:#fff}
+.takeover,.emhero{background:var(--ember)}
+.skip{background:var(--ember)}
+
+/* -------------------------------------------------- CONTRAST PASS, ROUND 2 */
+/* #C74E1A cleared white but landed at 4.36:1 on the #F7F8F9 band — just under
+   the floor. #BE4A17 clears both surfaces in both directions. */
+:root{ --ember:#BE4A17; }
+
+.fnote{margin-top:18px;font-size:10px;color:var(--ice-accent)}
+
+/* every accent that lands on navy routes to the warm token, not ember/fridge */
+.dark .shead .kick,.dark .kick,.hero .shead .kick{color:var(--warm)}
+.crumbs span{color:var(--warm)}
+.cstate .mono,.cstate.s1 .mono,.cstate.s2 .mono,.cstate.s3 .mono,
+.status .hd .mono,.status.ok .hd .mono{color:var(--warm)}
+.dark .eqbody .mono,.dark .eqlist button[aria-selected="true"] .n{color:var(--warm)}
+
+/* the emergency page: header and .deep band were still inheriting v5 values */
+body.emergency .hdr{background:#fff}
+body.emergency .deep{background:var(--bone);color:var(--ink)}
+body.emergency .deep .shead h2{color:var(--ink)}
+body.emergency .deep .shead p{color:var(--steel)}
+body.emergency .deep .kick{color:var(--ember)}
+body.emergency .deep .infoline b{color:var(--ink)}
+body.emergency .deep .infoline span{color:var(--steel)}
+body.emergency .deep .infoline{border-bottom-color:var(--line)}
+body.emergency .deep .infoline svg{stroke:var(--ember)}
+.emhero .crumbs a,.emhero .crumbs i,.emhero .crumbs span{color:#fff}
+
+/* captions sitting on photographs were too faint to read against the gradient */
+.plate .cap,.eqmedia .lbl,.rc .im .cap,.regmap .cap,.door .img .cap,.mapplate .cap{
+  color:rgba(255,255,255,.86)}

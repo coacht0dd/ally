@@ -5,6 +5,7 @@
   --img-cond:url("/ally/v7/assets/cond.webp");
   --img-reshome:url("/ally/v7/assets/reshome.webp");
   --img-resair:url("/ally/v7/assets/resair.webp");
+  --img-team:url("/ally/v7/assets/team.webp");
   --img-logo:url("/ally/v7/assets/logo-ink.webp");
   --img-logo-white:url("/ally/v7/assets/logo-white.webp");
 }
@@ -160,7 +161,7 @@ body.navopen .burger span::after{top:0;transform:rotate(-45deg)}
 .hero .stage{position:absolute;inset:0;z-index:0}
 /* the photographic plane — art-directed placeholder, subject right, copy space left */
 .hero .shot{position:absolute;inset:0;
-  background:var(--img-hero) 62% 46%/cover no-repeat, #04121E;
+  background:var(--hero-img,var(--img-hero)) var(--hero-pos,62% 46%)/cover no-repeat, #04121E;
   transform:scale(1.06);filter:blur(14px) saturate(.7);opacity:0;
   animation:shotIn 1.5s .18s var(--ease-out) forwards}
 @keyframes shotIn{to{transform:scale(1);filter:blur(0) saturate(1);opacity:1}}

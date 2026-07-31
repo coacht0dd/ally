@@ -1,0 +1,327 @@
+/* ============================================================================
+   THEME: CLEAN
+   Loaded after site.css when the build runs with THEME=clean.
+
+   The note was that the base build reads "too architectural" — and it does.
+   The brief's §7 asked for a technical graphic language, so it got one:
+   IBM Plex Mono microtype on every label, condenser-fin linework, coordinate
+   rules, a temperature readout, diagnostic brackets, 01/02/03 indices on
+   everything. Individually each is fine. Together they make the page feel like
+   a drawing set rather than a website, and they compete with the content for
+   attention.
+
+   This theme removes the decoration and keeps the structure:
+
+     · no mono face anywhere — labels become plain uppercase Inter
+     · no linework, grain, fins, coils, temperature card or thermal seam
+     · no numbered indices on lists and cards
+     · one card system instead of five
+     · light surfaces lead; navy appears twice a page, not six times
+     · bigger type, more line spacing, more air between sections
+     · a stable navigation that does not rearrange itself as you resize
+
+   Nothing about the words, the routes or the structured data changes.
+   ========================================================================= */
+
+:root{
+  --midnight:#0E2439;
+  --equip:#16385A;
+  --fridge:#1583B4;
+  --ice:#EAF6FB;
+  --ember:#E4622C;
+  --warm:#F0A04B;
+  --bone:#F7F8F9;
+  --white:#FFFFFF;
+  --ink:#16202B;
+  --steel:#5D6B78;
+  --line:#E3E7EA;
+
+  --disp:'Archivo',system-ui,-apple-system,sans-serif;
+  --body:'Inter',system-ui,-apple-system,"Segoe UI",sans-serif;
+
+  --r:10px;
+  --sh-1:0 1px 2px rgba(22,32,43,.05);
+  --sh-2:0 6px 24px rgba(22,32,43,.08);
+  --sh-3:0 18px 48px rgba(22,32,43,.13);
+}
+:root{ --warm:#F0A04B; }
+
+html{scroll-padding-top:110px}
+body{background:var(--white);color:var(--ink);font-size:17px;line-height:1.72}
+h1,h2,h3,h4{font-family:var(--disp);letter-spacing:-.022em;line-height:1.16;font-weight:700}
+
+/* ============================================================ STRIP THE
+   DECORATION. This is the whole point of the theme. */
+.grain,.fins,.coils,.status,.shotnote,.seam,.thermal,
+.hero .stage svg,.takeover .lw,.bigq .lw,.half .lines,
+.eqmedia .lw,.rc .im .lw,.plate .lw{display:none!important}
+.symlist .n,.eqc .n,.eqlist .n,.lc .n,.cstate .meter{display:none!important}
+.st .node{background:var(--ember);border:0;color:#fff;width:38px;height:38px;font-size:14px;
+  font-family:var(--body);font-weight:700}
+.proc.in .st .node{background:var(--ember);border:0}
+.proc .rail,.proc .rail i{display:none}
+
+/* labels: plain uppercase Inter, not a mono face */
+.mono,.lbl,.kick,.crumbs,.field label,.eqbody .mono,.areastats .mono,
+.tcell .d,.ccard i,.pchip i,.radlist i,.ncell .d,.cstate .mono,.bigq .who a,.lc .n{
+  font-family:var(--body)!important;font-weight:600;letter-spacing:.075em;text-transform:uppercase}
+.mono{font-size:11.5px}
+.shead .kick{font-size:12px;color:var(--ember);gap:0;margin-bottom:12px}
+.shead .kick::before{display:none}
+.eyebrow{font-size:12px;letter-spacing:.075em;color:var(--warm)}
+.eyebrow::before{display:none}
+
+/* ------------------------------------------------------------- buttons */
+.btn{border-radius:8px;font-family:var(--body);font-weight:650;font-size:16px;letter-spacing:0;
+  text-transform:none;padding:15px 26px;min-height:54px;border-width:1.5px;box-shadow:none;
+  transition:background .18s ease,border-color .18s ease,transform .18s ease,box-shadow .18s ease}
+.btn:hover{transform:translateY(-1px);box-shadow:var(--sh-2)}
+.btn-ember{background:var(--ember);border-color:var(--ember);color:#fff}
+.btn-ember:hover{background:#CE5522;border-color:#CE5522}
+.btn-ice{background:var(--midnight);border-color:var(--midnight);color:#fff}
+.btn-out-l{background:#fff;border-color:var(--line);color:var(--ink)}
+.btn-out-l:hover{border-color:var(--midnight)}
+.btn-out-d{background:transparent;border-color:rgba(255,255,255,.45);color:#fff}
+.btn-out-d:hover{background:rgba(255,255,255,.12);border-color:#fff}
+.btn-w{background:#fff;border-color:#fff;color:var(--ember)}
+
+/* --------------------------------------------------------------- header */
+/* Stable. Six items, always the same six, from 1024 up. Nothing reshuffles. */
+.util{background:var(--midnight);height:auto;padding:10px 0;font-size:13.5px}
+.util .r{display:none}
+.hdr{background:#fff;border-bottom:1px solid var(--line);box-shadow:none}
+.hdr.stuck{background:#fff;box-shadow:0 1px 0 var(--line),0 6px 20px rgba(22,32,43,.06)}
+.hdr .bar{height:78px;gap:28px}
+.hdr.stuck .bar{height:70px}
+.hdr .wrap{max-width:1240px}
+.brand .rule,.brand .tag{display:none}
+.brand .lg{width:138px;height:46px}
+.hdr.stuck .brand .lg{width:126px;height:42px}
+.mainnav{flex:1 1 auto;display:flex;justify-content:center}
+.mainnav ul{gap:4px}
+.mainnav li.opt{display:none}          /* Maintenance/Reviews/About live in the footer */
+.mainnav li.opt2{display:list-item}    /* Service Area + Contact always shown */
+.mainnav a{font-size:15.5px;font-weight:600;color:var(--ink);padding:10px 14px;border-radius:7px}
+.mainnav a::after{display:none}
+.mainnav a:hover{color:var(--ember);background:#F5F7F8}
+.mainnav a.em{color:var(--ember)}
+.hdr-tel .mono{display:none}
+.hdr-tel b{font-size:19px;font-weight:700;letter-spacing:-.02em}
+.burger{border-radius:8px}
+.mobnav{background:#fff}
+.mobnav a{font-family:var(--body);font-weight:600}
+@media(max-width:1180px){ .mainnav a{padding:10px 11px;font-size:15px} }
+@media(max-width:1040px){ .hdr-tel{display:none} }
+@media(max-width:940px){ .mainnav{display:none} .burger{display:grid} }
+
+/* ------------------------------------------------------------------ hero */
+.hero{background:var(--midnight)}
+.hero .shot{filter:none;opacity:1;animation:none;transform:none}
+.ihero .shot,.hero .shot{background-position:62% 42%}
+.hero .vig{background:linear-gradient(92deg,rgba(10,22,35,.90) 0%,rgba(10,22,35,.80) 38%,rgba(10,22,35,.46) 66%,rgba(10,22,35,.24) 100%)}
+.hero .inner{padding:clamp(56px,6vw,104px) 0;max-width:780px}
+.ihero .inner{padding:clamp(42px,4.4vw,72px) 0;max-width:760px}
+.hero h1{font-size:clamp(34px,4.4vw,58px);line-height:1.1;letter-spacing:-.028em;font-weight:800}
+.hero h1 .l>span{transform:none;animation:none}
+.hero h1 .l:nth-child(2)>span::after{display:none}
+.ihero h1{font-size:clamp(29px,3.3vw,44px);line-height:1.14;font-weight:800}
+.hero h1 em,.ihero h1 em{color:var(--warm);font-style:normal}
+.hero .sub,.ihero .sub{font-size:clamp(17px,1.25vw,19.5px);color:rgba(233,240,245,.86);max-width:52ch;margin-top:18px}
+.hero .acts,.ihero .acts{margin-top:30px;gap:12px}
+.rv{opacity:1;transform:none;animation:none}
+
+/* the proof row moves out of the photo and onto a clean white strip */
+.microproof{display:grid;grid-template-columns:repeat(4,1fr);border:0;margin-top:0;
+  background:#fff;position:relative;z-index:5}
+.hero .wrap .microproof{margin-top:clamp(30px,3.4vw,44px);border-top:1px solid rgba(255,255,255,.18)}
+.microproof>div{border-right:1px solid rgba(255,255,255,.18);padding:18px 20px}
+.microproof>div:first-child{padding-left:0}
+.microproof{background:transparent}
+.microproof b{font-family:var(--disp);font-weight:800;font-size:20px}
+.microproof .mono{font-size:11px;color:rgba(223,240,248,.7)}
+
+/* --------------------------------------------------------- section tone */
+/* Light leads. Navy twice a page, not six times. */
+section{padding:clamp(58px,6.4vw,104px) 0}
+.wrap{max-width:1180px}
+.deep{background:var(--bone);color:var(--ink)}
+.deep .shead h2,.deep h2,.deep h3{color:var(--ink)}
+.deep .shead p,.deep p{color:var(--steel)}
+.deep .kick{color:var(--ember)}
+.dark{background:var(--midnight);color:#fff}
+.dark .shead h2{color:#fff}
+.dark .kick{color:var(--warm)}
+.proof{background:var(--white)}
+.shead{max-width:660px;margin-bottom:clamp(32px,3.6vw,52px)}
+.shead h2{font-size:clamp(27px,3vw,40px);letter-spacing:-.026em}
+.shead p{font-size:17.5px;margin-top:14px;line-height:1.7}
+
+/* ---------------------------------------------------- one card system */
+.eqc,.relc,.riskc,.ccard,.pfrag,.step,.rcard,.ncell,.town{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-1);
+  padding:28px 26px;transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease}
+.eqc:hover,.relc:hover,.riskc:hover,.ncell:hover{border-color:#C9D2D8;box-shadow:var(--sh-2);transform:none}
+.eqc h3,.relc h3,.riskc h3,.ccard h3{font-size:19.5px;letter-spacing:-.02em}
+.riskc h3::before{display:none}
+.eqc p,.relc p,.riskc p,.step p{color:var(--steel);font-size:15.5px;margin-top:10px}
+.eqc .go,.relc .go{color:var(--ember);font-family:var(--body);font-weight:650;font-size:15px;margin-top:20px}
+.door,.rc,.panel,.plate,.regmap,.eqmedia,.bigq,.ratingbar,.bigcall,.eqbody{border-radius:var(--r)}
+.door .img,.rc .im{border-radius:var(--r) var(--r) 0 0}
+.panel{border:1px solid var(--line);box-shadow:var(--sh-2)}
+.chip,.pchip{border-radius:999px;border-color:var(--line);background:#fff;color:var(--ink)}
+.field input,.field select,.field textarea{border-radius:8px;background:#fff;border-color:var(--line)}
+.field label{font-size:11.5px;color:var(--steel)}
+
+/* -------------------------------------------------------------- lists */
+.symlist{border-top:0;gap:0 clamp(20px,3vw,44px)}
+.symlist li{padding:14px 0 14px 26px;position:relative;border-bottom-color:var(--line)}
+.symlist li::before{content:"";position:absolute;left:0;top:24px;width:8px;height:8px;border-radius:50%;
+  background:var(--ember)}
+.deep .symlist li{color:var(--ink);border-bottom-color:var(--line)}
+.ticks li{padding:13px 0 13px 28px}
+.ticks li::before{top:23px;width:14px;height:2px;background:var(--ember);border-radius:2px}
+.radlist,.tgrid{border-top-color:var(--line)}
+.radlist li,.tcell{border-bottom-color:var(--line)}
+.radlist a{padding:12px 4px}
+.tcell{border-radius:0;padding:14px 2px}
+.tcell:hover{padding-left:6px;background:transparent;color:var(--ember)}
+.dark .radlist li{border-bottom-color:rgba(255,255,255,.14)}
+.dark .radlist a{color:rgba(233,240,245,.9)}
+.dark .radlist i{color:var(--warm)}
+
+/* --------------------------------------------------------------- doors */
+.audsplit{gap:0}
+.half{min-height:clamp(360px,38vw,460px)}
+.half .vg{background:linear-gradient(to top,rgba(10,20,32,.92) 4%,rgba(10,20,32,.60) 46%,rgba(10,20,32,.12) 84%,transparent 100%)}
+.half h2{font-size:clamp(26px,2.8vw,38px);letter-spacing:-.026em}
+.half .tag{color:var(--warm);font-size:12px}
+.half .tag::before{display:none}
+.half .go{color:#fff;border-bottom:2px solid var(--warm);font-family:var(--body);font-weight:650}
+.half.res .go{color:#fff;border-bottom-color:var(--warm)}
+
+/* ---------------------------------------------------------------- proof */
+.bigq{background:var(--midnight);padding:clamp(30px,3.4vw,46px)}
+.bigq blockquote{font-family:var(--disp);font-weight:700;font-size:clamp(20px,2.1vw,28px);line-height:1.35;
+  letter-spacing:-.02em}
+.bigq .who a{font-size:11.5px;color:var(--warm);border-bottom-color:rgba(240,160,75,.4)}
+.stars{color:var(--warm)!important;letter-spacing:2px}
+.pfrag p{font-size:16px}
+.ratingbar{background:var(--bone);border:1px solid var(--line)}
+.ratingbar .n{font-family:var(--disp);font-weight:800}
+.ratingbar a{color:var(--ember)}
+
+/* ------------------------------------------------------------ process */
+.proc .steps{gap:clamp(18px,2.4vw,32px)}
+.st h3{font-size:18px;margin-top:18px}
+.disclaim{border-radius:var(--r);border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.05)}
+.deep .disclaim{border-color:var(--line);background:#fff;color:var(--steel)}
+
+/* ------------------------------------------------------------ continuity */
+.cont{border:0;gap:clamp(14px,1.8vw,20px);grid-template-columns:repeat(3,1fr)}
+.cstate{border:1px solid rgba(255,255,255,.16);border-radius:var(--r);background:rgba(255,255,255,.04)!important}
+.cstate.in.s1,.cstate.in.s2,.cstate.in.s3{background:rgba(255,255,255,.05)!important}
+.cstate li{border-bottom-color:rgba(255,255,255,.12)}
+@media(max-width:1000px){ .cont{grid-template-columns:1fr} .cstate{border-bottom:1px solid rgba(255,255,255,.16)} }
+
+/* --------------------------------------------------------- service area */
+.areastats{border:0;gap:clamp(14px,1.8vw,20px);grid-template-columns:repeat(4,1fr)}
+.areastats div{border:1px solid rgba(255,255,255,.16);border-radius:var(--r);padding:24px}
+.areastats div:first-child{padding-left:24px}
+.deep .areastats div{border-color:var(--line);background:#fff}
+.deep .areastats b{color:var(--ink)}
+.areastats b{font-size:clamp(28px,3vw,38px)}
+.areastats .mono{font-size:11px}
+.regmap{border:1px solid var(--line)}
+.dark .regmap{border-color:rgba(255,255,255,.16)}
+.regmap svg g{display:none}      /* drop the road-network scribble, keep the rings */
+.ccard{padding:24px}
+.ccard h3{padding-bottom:12px;border-bottom-color:var(--line)}
+.ccard a{font-size:15.5px}
+
+/* ------------------------------------------------------------------ FAQ */
+.faq{border-top-color:var(--line);max-width:820px}
+.faq details{border-bottom-color:var(--line)}
+.faq summary{font-family:var(--disp);font-weight:700;font-size:18.5px;padding:24px 44px 24px 0;
+  letter-spacing:-.018em}
+.faq summary::after{color:var(--ember);font-weight:300}
+.faq details p{font-size:16.5px;color:var(--steel)}
+.deep .faq summary{color:var(--ink)}
+
+/* ------------------------------------------------------- final + footer */
+.takeover{background:var(--ember)}
+.takeover h2{font-size:clamp(28px,4vw,54px);letter-spacing:-.028em;line-height:1.14}
+.telhuge{font-family:var(--disp);font-weight:800;font-size:clamp(32px,5vw,64px);letter-spacing:-.035em;
+  border-bottom-width:3px}
+.emhero{background:var(--ember)}
+.emhero::after{display:none}
+.emhero h1{font-size:clamp(34px,5vw,66px);letter-spacing:-.032em;line-height:1.1}
+.emhero h1 em{color:var(--midnight)}
+.emhero>.wrap>.mono svg{animation:none}
+.ftr{background:var(--midnight);padding-top:clamp(48px,5.4vw,76px)}
+.fg h4{font-family:var(--body);font-weight:700;letter-spacing:.075em;font-size:11.5px;color:var(--warm)}
+.fg a{padding:6px 0;font-size:15px}
+.fmotto{font-family:var(--disp);font-weight:800;font-size:20px;color:#fff}
+.callbar{background:#fff;border-top:1px solid var(--line)}
+.callbar .btn-out-d{border-color:var(--line);color:var(--ink);background:#fff}
+
+/* --------------------------------------------------------------- misc */
+.pull{border-left:3px solid var(--ember);font-family:var(--disp);font-weight:700;letter-spacing:-.022em}
+.prose p{font-size:17.5px;line-height:1.75}
+.symcall{border-radius:var(--r);border:1px solid var(--line);background:#fff}
+.deep .symcall{background:#fff}
+.symcall div{color:var(--ink)}
+.plate .cap,.eqmedia .lbl,.rc .im .cap,.regmap .cap,.door .img .cap{
+  font-family:var(--body)!important;font-size:10.5px;letter-spacing:.06em;opacity:.72}
+.io{transform:none}
+
+/* The stats band became four bordered cards; at phone widths it needs to fold
+   to one column rather than squeezing four 24px-padded boxes onto 320px. */
+@media(max-width:820px){
+  .areastats{grid-template-columns:1fr 1fr}
+  .areastats div:first-child{padding-left:24px}
+}
+@media(max-width:520px){
+  .areastats{grid-template-columns:1fr}
+  .areastats div{padding:20px}
+}
+
+/* ---------------------------------------------------------------- FIXES */
+
+/* The centred nav was taking space from the right-hand group, so the phone
+   number ran under the Request Service button. Give the right group a firm
+   basis and let the nav absorb only what is left. */
+.hdr .bar{gap:20px}
+.mainnav{flex:1 1 0;min-width:0;justify-content:center}
+.hdr-r{flex:0 0 auto;gap:20px}
+.hdr-tel{flex:0 0 auto}
+.hdr-r .btn{flex:0 0 auto;white-space:nowrap;min-height:48px;padding:13px 22px;font-size:15px}
+@media(max-width:1300px){ .mainnav a{padding:10px 10px;font-size:14.5px} }
+
+/* The proof row read as one run-on line. Number over label, left aligned. */
+.microproof>div{display:flex;flex-direction:column;align-items:flex-start;gap:4px;
+  padding:20px 22px;justify-content:center}
+.microproof>div:last-child{border-right:0}
+.microproof b{font-size:22px;line-height:1}
+.microproof .mono{font-size:10.5px;line-height:1.4;letter-spacing:.07em}
+.microproof a{flex-direction:column;align-items:flex-start;gap:4px}
+@media(max-width:760px){
+  .microproof{grid-template-columns:1fr 1fr}
+  .microproof>div:nth-child(2n){border-right:0}
+  .microproof>div:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.18)}
+  .microproof>div:nth-child(3){padding-left:0}
+}
+
+/* Without the progress rail the staggered node colours made step four look
+   disabled. All four are the same now. */
+.st .node,.proc .st .node,.proc.in .st:nth-child(1) .node,.proc.in .st:nth-child(2) .node,
+.proc.in .st:nth-child(3) .node,.proc.in .st:nth-child(4) .node{
+  background:var(--ember);border-color:var(--ember);color:#fff;transition-delay:0s}
+
+/* The nav still overflowed its flex track and ran under the phone, because the
+   ul is nowrap and its items never shrink. Stop the track from being smaller
+   than its contents, and drop Contact from the bar — the Request Service
+   button is the contact action, so having both is redundant anyway.
+   Four items, always the same four. */
+.mainnav{flex:0 1 auto}
+.mainnav li.opt2{display:none}
+.mainnav li:nth-child(7){display:list-item}   /* Service Area stays */
